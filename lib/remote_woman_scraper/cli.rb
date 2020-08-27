@@ -42,21 +42,14 @@ class RemoteWomanScraper::CLI
     end
 
     def find_by_schedule(input)
-        # if input == 'f'
-        #     RemoteWomanScraper::JobPost.all {|job| job.schedule == 'Full Time'}
-        # elsif input == 'p'
-        #     RemoteWomanScraper::JobPost.all {|job| job.schedule == 'Part Time'}
-        # else
-        #     break # hopefully it just moves on to the next prompt, instead of breaking my program lol
-        # end 
-
         case input 
         when input == 'f'
-            RemoteWomanScraper::JobPost.all {|job| job.schedule == 'Full Time'}
+            RemoteWomanScraper::JobPost.all.select {|job| job.schedule == 'Full Time'}
         when input == 'p'
-            RemoteWomanScraper::JobPost.all {|job| job.schedule == 'Part Time'}
+            RemoteWomanScraper::JobPost.all.select {|job| job.schedule == 'Part Time'}
         end
     end
+    binding.pry
 
     def list_jobs(input)
 
