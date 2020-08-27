@@ -52,3 +52,6 @@ cli: all
 user: p
 cli: all
 => Collect ONLY part-time jobs from JobPost.all
+
+1. We need jobs to be created by Scraper before we run #find_by_schedule so there will be an array for it to filter through
+2. Why does #find_by_schedule return nil? 
