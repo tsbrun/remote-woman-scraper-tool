@@ -43,23 +43,26 @@ class RemoteWomanScraper::CLI
         puts "Are you looking for full-time or part-time jobs? Enter 'f', 'p', or 'both'."
         schedule = gets.strip.downcase
 
-        puts "Please enter your search criterion separated by commas, e.g., 'full-stack, engineer, JavaScript'. Type 'all' to see all job posts."
-        search_criteria = gets.strip.downcase
+        # puts "Please enter your search criterion separated by commas, e.g., 'full-stack, engineer, JavaScript'. Type 'all' to see all job posts."
+        # search_criteria = gets.strip.downcase
 
-        list_jobs(schedule, search_criteria)
+        # list_jobs(schedule, search_criteria)
+        list_jobs(schedule)
     end
 
-    def list_jobs(schedule, input)
+    def list_jobs(schedule)
         jobs = find_by_schedule(schedule)
-        binding.pry
+        #binding.pry
 
         if jobs == []
             puts "There were no jobs matching your preferred schedule."
         end
 
-        if input == 'all'
-            @scraper.print_jobs(jobs)
-        end
+        @scraper.print_jobs(jobs)
+
+        # if input == 'all'
+        #     @scraper.print_jobs(jobs)
+        # end
     end
 
     def find_by_schedule(schedule)
