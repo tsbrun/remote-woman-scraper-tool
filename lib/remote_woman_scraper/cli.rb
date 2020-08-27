@@ -31,12 +31,24 @@ class RemoteWomanScraper::CLI
 
     def new_search
         puts "Are you looking for full-time or part-time jobs? Enter 'f', 'p', or 'both'."
-        input = gets.strip.downcase
+        schedule = gets.strip.downcase
+
+        find_by_schedule(schedule)
 
         puts "Please enter your search criterion separated by commas, e.g., 'full-stack, engineer, JavaScript'. Type 'all' to see all job posts."
         input = gets.strip.downcase
 
         list_jobs(input)
+    end
+
+    def find_by_schedule(input)
+        if input == 'f'
+            RemoteWomanScraper::JobPost.all {|job| job.schedule == 'Full Time'}
+        elsif input == 'p'
+            RemoteWomanScraper::JobPost.all {|job| job.schedule == 'Part Time'}
+        else
+            break # hopefully it just moves on to the next prompt, instead of breaking my program lol
+        end 
     end
 
     def list_jobs(input)
