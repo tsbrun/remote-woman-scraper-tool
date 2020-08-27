@@ -53,6 +53,10 @@ class RemoteWomanScraper::CLI
         jobs = find_by_schedule(schedule)
         binding.pry
 
+        if jobs == []
+            puts "There were no jobs matching your preferred schedule."
+        end
+
         if input == 'all'
             @scraper.print_jobs(jobs)
         end
