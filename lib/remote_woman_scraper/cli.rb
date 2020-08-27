@@ -9,7 +9,6 @@ class RemoteWomanScraper::CLI
 
     def welcome 
         puts "Welcome to the Remote Woman Scraper Tool. Please follow the prompts..."
-        sleep 1
     end
 
     def goodbye
@@ -20,7 +19,7 @@ class RemoteWomanScraper::CLI
         scraper = RemoteWomanScraper::Scraper.new 
         scraper.make_jobs
         RemoteWomanScraper::JobPost.all
-        # returns instances of jobs
+        # returns all instances of jobs
     end
 
     def search
@@ -40,8 +39,8 @@ class RemoteWomanScraper::CLI
         puts "Are you looking for full-time or part-time jobs? Enter 'f', 'p', or 'both'."
         schedule = gets.strip.downcase
 
-        find_by_schedule(schedule)
-        # returns list of jobs filtered by schedule
+        #find_by_schedule(schedule)
+        ## returns list of jobs filtered by schedule
 
         # list_jobs needs to act on return value of find_by_schedule
 
@@ -56,12 +55,11 @@ class RemoteWomanScraper::CLI
         case input 
         when input == 'f'
             jobs = scrape.select {|job| job.schedule == 'Full Time'}
+            binding.pry
         when input == 'p'
             jobs = scrape.select {|job| job.schedule == 'Part Time'}
         end
         jobs
-
-        binding.pry
     end
     #binding.pry
 
@@ -71,13 +69,16 @@ class RemoteWomanScraper::CLI
 
         jobs = find_by_schedule(schedule)
         # we just need input to deal with this jobs variable, rather than directly with RemoteWomanScraper::JobPost.all
-        binding.pry
 
-        if input == "all"
-            scraper = RemoteWomanScraper::Scraper.new
-            scraper.print_jobs(jobs)
-            # print_jobs needs to accept our jobs variable
-        end
+        # if input == "all"
+        #     scraper = RemoteWomanScraper::Scraper.new
+        #     scraper.print_jobs(jobs)
+        #     # print_jobs needs to accept our jobs variable
+        # end
+
+        # given schedule == 'f' and input == 'all', jobs == all instances of full-time jobs 
+        # Let's see what #list_jobs returns... nothing. Which means the return value of find_by_schedule is still nil. 
+        # WHYYYYYYYYYY
     end
 
 end
