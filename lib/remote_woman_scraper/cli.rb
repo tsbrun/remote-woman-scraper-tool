@@ -1,6 +1,5 @@
 # CLI Controller 
 class RemoteWomanScraper::CLI
-    attr_accessor :all_jobs
 
     def call 
         welcome
@@ -20,7 +19,7 @@ class RemoteWomanScraper::CLI
     def scrape 
         scraper = RemoteWomanScraper::Scraper.new 
         scraper.make_jobs
-        @all_jobs = RemoteWomanScraper::JobPost.all
+        RemoteWomanScraper::JobPost.all
         # returns instances of jobs
     end
 
@@ -56,9 +55,9 @@ class RemoteWomanScraper::CLI
         jobs = []
         case input 
         when input == 'f'
-            jobs = RemoteWomanScraper::JobPost.all.select {|job| job.schedule == 'Full Time'}
+            jobs = scrape.select {|job| job.schedule == 'Full Time'}
         when input == 'p'
-            jobs = RemoteWomanScraper::JobPost.all.select {|job| job.schedule == 'Part Time'}
+            jobs = scrape.select {|job| job.schedule == 'Part Time'}
         end
         jobs
 
