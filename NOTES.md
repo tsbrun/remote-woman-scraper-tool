@@ -56,3 +56,5 @@ cli: all
 We need jobs to be created by Scraper before we run #find_by_schedule so there will be an array for it to filter through
     # scrape before running any lists or filters 
 Why does #find_by_schedule return nil? 
+
+7. I want to refactor my code so that there is no "enter search criteria" option. The only way to filter is by schedule. 
