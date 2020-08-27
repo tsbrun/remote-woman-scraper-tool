@@ -40,3 +40,15 @@ What is the code I wish I had?
 # else
 ## break (???)
 # end
+
+Right now, my find_by_schedule feature technically works. However, it doesn't affect the results of the second prompt / input / whatever... 
+
+cli: f, p , or both
+***
+user: f 
+cli: all
+=> Collect ONLY full-time jobs from JobPost.all
+*** 
+user: p
+cli: all
+=> Collect ONLY part-time jobs from JobPost.all
