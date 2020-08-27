@@ -3,6 +3,7 @@ class RemoteWomanScraper::CLI
 
     def call 
         welcome
+        scrape
         search
         goodbye
     end
@@ -20,6 +21,7 @@ class RemoteWomanScraper::CLI
         scraper.make_jobs
         RemoteWomanScraper::JobPost.all
         # returns all instances of jobs
+        # this is working 
     end
 
     def search
@@ -39,46 +41,53 @@ class RemoteWomanScraper::CLI
         puts "Are you looking for full-time or part-time jobs? Enter 'f', 'p', or 'both'."
         schedule = gets.strip.downcase
 
-        #find_by_schedule(schedule)
-        ## returns list of jobs filtered by schedule
-
-        # list_jobs needs to act on return value of find_by_schedule
-
         puts "Please enter your search criterion separated by commas, e.g., 'full-stack, engineer, JavaScript'. Type 'all' to see all job posts."
-        input = gets.strip.downcase
+        search_criteria = gets.strip.downcase
 
-        list_jobs(schedule, input)
+        list_jobs(schedule, search_criteria)
+        # needs to use 'schedule' to get only part/full-time jobs
     end
 
-    def find_by_schedule(input)
+    def find_by_schedule(schedule)
         jobs = []
-        case input 
-        when input == 'f'
-            jobs = scrape.select {|job| job.schedule == 'Full Time'}
-            binding.pry
-        when input == 'p'
-            jobs = scrape.select {|job| job.schedule == 'Part Time'}
+        case schedule 
+        when schedule == 'f'
+            jobs = RemoteWomanScraper::JobPost.all.select {|job| job.schedule == 'Full Time'}
+        when schedule == 'p'
+            jobs = RemoteWomanScraper::JobPost.all.select {|job| job.schedule == 'Part Time'}
         end
         jobs
     end
-    #binding.pry
+    binding.pry
 
     def list_jobs(schedule, input)
-
-        # we can call find_by_schedule within this method
-
         jobs = find_by_schedule(schedule)
-        # we just need input to deal with this jobs variable, rather than directly with RemoteWomanScraper::JobPost.all
+        binding.pry
 
-        # if input == "all"
-        #     scraper = RemoteWomanScraper::Scraper.new
-        #     scraper.print_jobs(jobs)
-        #     # print_jobs needs to accept our jobs variable
-        # end
-
-        # given schedule == 'f' and input == 'all', jobs == all instances of full-time jobs 
-        # Let's see what #list_jobs returns... nothing. Which means the return value of find_by_schedule is still nil. 
-        # WHYYYYYYYYYY
+        if input == 'all'
+            jobs
+        end
     end
+
+    # def list_jobs(schedule, input)
+
+    #     # we can call find_by_schedule within this method
+
+    #     jobs = find_by_schedule(schedule)
+    #     # we just need input to deal with this jobs variable, rather than directly with RemoteWomanScraper::JobPost.all
+
+    #     # if input == "all"
+    #     #     scraper = RemoteWomanScraper::Scraper.new
+    #     #     scraper.print_jobs(jobs)
+    #     #     # print_jobs needs to accept our jobs variable
+    #     # end
+
+    #     # given schedule == 'f' and input == 'all', jobs == all instances of full-time jobs 
+    #     # Let's see what #list_jobs returns... nothing. Which means the return value of find_by_schedule is still nil. 
+    #     # WHYYYYYYYYYY
+
+    #     # I'm pretty sure the problem is with the scraper.
+    # end
+    #binding.pry
 
 end
