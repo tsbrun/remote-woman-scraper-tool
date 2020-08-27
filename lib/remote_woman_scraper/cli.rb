@@ -1,10 +1,15 @@
 # CLI Controller 
 class RemoteWomanScraper::CLI
+    attr_accessor :scraper
 
     def call 
         welcome
+
+        @scraper = RemoteWomanScraper::Scraper.new
         scrape
+
         search
+
         goodbye
     end
 
@@ -17,8 +22,7 @@ class RemoteWomanScraper::CLI
     end
 
     def scrape 
-        scraper = RemoteWomanScraper::Scraper.new 
-        scraper.make_jobs
+        @scraper.make_jobs
         RemoteWomanScraper::JobPost.all
         # returns all instances of jobs
         # this is working 
@@ -45,49 +49,27 @@ class RemoteWomanScraper::CLI
         search_criteria = gets.strip.downcase
 
         list_jobs(schedule, search_criteria)
-        # needs to use 'schedule' to get only part/full-time jobs
     end
 
     def find_by_schedule(schedule)
         jobs = []
-        case schedule 
-        when schedule == 'f'
+
+        if schedule == 'f'
             jobs = RemoteWomanScraper::JobPost.all.select {|job| job.schedule == 'Full Time'}
-        when schedule == 'p'
+        elsif schedule == 'p'
             jobs = RemoteWomanScraper::JobPost.all.select {|job| job.schedule == 'Part Time'}
         end
+
         jobs
     end
-    binding.pry
 
     def list_jobs(schedule, input)
         jobs = find_by_schedule(schedule)
         binding.pry
 
         if input == 'all'
-            jobs
+            @scraper.print_jobs(jobs)
         end
     end
-
-    # def list_jobs(schedule, input)
-
-    #     # we can call find_by_schedule within this method
-
-    #     jobs = find_by_schedule(schedule)
-    #     # we just need input to deal with this jobs variable, rather than directly with RemoteWomanScraper::JobPost.all
-
-    #     # if input == "all"
-    #     #     scraper = RemoteWomanScraper::Scraper.new
-    #     #     scraper.print_jobs(jobs)
-    #     #     # print_jobs needs to accept our jobs variable
-    #     # end
-
-    #     # given schedule == 'f' and input == 'all', jobs == all instances of full-time jobs 
-    #     # Let's see what #list_jobs returns... nothing. Which means the return value of find_by_schedule is still nil. 
-    #     # WHYYYYYYYYYY
-
-    #     # I'm pretty sure the problem is with the scraper.
-    # end
-    #binding.pry
 
 end
