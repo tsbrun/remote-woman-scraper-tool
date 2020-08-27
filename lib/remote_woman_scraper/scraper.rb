@@ -28,10 +28,10 @@ class RemoteWomanScraper::Scraper
         end
     end
 
-    def print_jobs
+    def print_jobs(jobs)
         self.make_jobs
 
-        RemoteWomanScraper::JobPost.all.each.with_index(1) do |job, i|
+        jobs.each.with_index(1) do |job, i|
             if job.title && job.title != ""
                 puts "\n"
                 puts "#{i}. #{job.title} | #{job.schedule} | #{job.company}"
