@@ -1,5 +1,6 @@
 # CLI Controller 
 class RemoteWomanScraper::CLI
+    attr_accessor :all_jobs
 
     def call 
         welcome
@@ -14,6 +15,13 @@ class RemoteWomanScraper::CLI
 
     def goodbye
         puts "Thank you for using the Remote Woman Scraper Tool."
+    end
+
+    def scrape 
+        scraper = RemoteWomanScraper::Scraper.new 
+        scraper.make_jobs
+        @all_jobs = RemoteWomanScraper::JobPost.all
+        # returns instances of jobs
     end
 
     def search
@@ -53,6 +61,8 @@ class RemoteWomanScraper::CLI
             jobs = RemoteWomanScraper::JobPost.all.select {|job| job.schedule == 'Part Time'}
         end
         jobs
+
+        binding.pry
     end
     #binding.pry
 
