@@ -24,8 +24,6 @@ class RemoteWomanScraper::CLI
     def scrape 
         @scraper.make_jobs
         RemoteWomanScraper::JobPost.all
-        # returns all instances of jobs
-        # this is working 
     end
 
     def search
@@ -51,18 +49,6 @@ class RemoteWomanScraper::CLI
         list_jobs(schedule, search_criteria)
     end
 
-    def find_by_schedule(schedule)
-        jobs = []
-
-        if schedule == 'f'
-            jobs = RemoteWomanScraper::JobPost.all.select {|job| job.schedule == 'Full Time'}
-        elsif schedule == 'p'
-            jobs = RemoteWomanScraper::JobPost.all.select {|job| job.schedule == 'Part Time'}
-        end
-
-        jobs
-    end
-
     def list_jobs(schedule, input)
         jobs = find_by_schedule(schedule)
         binding.pry
@@ -70,6 +56,20 @@ class RemoteWomanScraper::CLI
         if input == 'all'
             @scraper.print_jobs(jobs)
         end
+    end
+
+    def find_by_schedule(schedule)
+        jobs = []
+
+        if schedule == 'f'
+            jobs = RemoteWomanScraper::JobPost.all.select {|job| job.schedule == 'Full Time'}
+        elsif schedule == 'p'
+            jobs = RemoteWomanScraper::JobPost.all.select {|job| job.schedule == 'Part Time'}
+        elsif schedule == 'both'
+            jobs = RemoteWomanScraper::JobPost.all
+        end
+
+        jobs
     end
 
 end
