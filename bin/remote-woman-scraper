@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require '/Users/work/Documents/Flatiron/code/cli_project/remote_woman_scraper/lib/remote_woman_scraper'
+
+RemoteWomanScraper::CLI.new.call

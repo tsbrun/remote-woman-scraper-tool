@@ -1,0 +1,19 @@
+1. Write the code you wish you had. 
+
+2. The CLI controller is responsible for user interactions, like welcoming the user to the program and dealing with input.
+
+3. Go one step at a time. Don't try to deal with a main problem of your program right at the beginning. Start with a stub, just to make sure things are working as they should.
+
+4. The order in which you load your require and require_relative files matters. I was loading the CLI before the jobPost file. Since CLI is dependent on the jobPost file, it was not working. It came up with an "uninitialized constant RemoteDeveloperWoman::JobPost" error, even though I had clearly defined that class and loaded in the required files. They just weren't required in the right order.
+
+5. If you define a class like so--class ModuleName::ClassName--then you have to use the same syntax when creating a new 
+instance of that class. E.g., I created the class RemoteWomanScraper::JobPost. When I tried to run the following code ( job_post = JobPost.new ) it gave me the error "uninitialized constant RemoteWomanScraper::JobPost::JobPost". What I should have done was "job_post = RemoteWomanScraper::JobPost.new". If you use namespacing convention to define a class, you must use namespacing convention to instantiate an instance of that class.
+
+
+What is the code I wish I had?
+=> Scraper class scrapes the website and contains a list of all developer job posts.
+=> Scraper class makes a job post instance out of each job post in that list.
+=> Scraper class adds those job post instances to a class @@all variable.
+=> I can call on Scraper.all and filter through it with something... 
+
+=> The filter / search function may need another class. I'll focus on scraping the website first, though. 
