@@ -41,16 +41,18 @@ class RemoteWomanScraper::CLI
         puts "Please enter your search criterion separated by commas, e.g., 'full-stack, engineer, JavaScript'. Type 'all' to see all job posts."
         input = gets.strip.downcase
 
-        list_jobs(input)
+        list_jobs(schedule, input)
     end
 
     def find_by_schedule(input)
+        jobs = []
         case input 
         when input == 'f'
-            RemoteWomanScraper::JobPost.all.select {|job| job.schedule == 'Full Time'}
+            jobs = RemoteWomanScraper::JobPost.all.select {|job| job.schedule == 'Full Time'}
         when input == 'p'
-            RemoteWomanScraper::JobPost.all.select {|job| job.schedule == 'Part Time'}
+            jobs = RemoteWomanScraper::JobPost.all.select {|job| job.schedule == 'Part Time'}
         end
+        jobs
     end
     #binding.pry
 
@@ -60,6 +62,7 @@ class RemoteWomanScraper::CLI
 
         jobs = find_by_schedule(schedule)
         # we just need input to deal with this jobs variable, rather than directly with RemoteWomanScraper::JobPost.all
+        binding.pry
 
         if input == "all"
             scraper = RemoteWomanScraper::Scraper.new
