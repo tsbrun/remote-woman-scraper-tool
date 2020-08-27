@@ -17,3 +17,26 @@ What is the code I wish I had?
 => I can call on Scraper.all and filter through it with something... 
 
 => The filter / search function may need another class. I'll focus on scraping the website first, though. 
+
+6. Filter by schedule 
+
+# cli prompts : "Looking for full-time or part-time or both?"
+## get input 
+## if full-time 
+## search through all JobPosts and find instances where schedule == 'Full Time'
+## if part-time
+## search through all JobPosts and find instances where schedule == 'Part Time'
+## if both
+## basically, do nothing and proceed to the next prompt
+
+# find_by_schedule(schedule)
+## RemoteWomanScraper::JobPost.all {|job| job.schedule == schedule}
+
+# input will be 'f', 'p', or 'both'...
+# if 'f'
+## find_by_schedule('Full Time')
+# elsif 'p'
+## find_by_schedule('Part Time')
+# else
+## break (???)
+# end
